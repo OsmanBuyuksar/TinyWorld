@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace osman
+{
+    public class MapGenerator : MonoBehaviour
+    { 
+        public enum DrawMode{Noise, ColorMap, Mesh};
+        public DrawMode drawMode = DrawMode.Noise;
+        [SerializeField]
+        TerrainType[] regions;
+        [Space(2)]
+        [SerializeField]
+        public AnimationCurve heightCurve;
+        [SerializeField]
+        public float heightMultiplier = 1f;
+        public const int mapChunkSize = 241;
+        [Range(0,6)]
+        public int levelOfSimplification;
+        public float scale;
+        public float lacunarity = 1f;
+        [Range(0,1)]
+        public float persistence = 1f;
+        public int octaves = 1;
+        public int seed;
+        public Vector2 offset;
+        [Space(2)]
+        public bool autoUpdate;
+        public void GenerateMap()
+        {
+            float[,] noiseMap = Noise.GenerateNoise(mapChunkSize, mapChunkSize,seed,scale, octaves, persistence, lacunarity, offset);
+            
+            MapDisplay display = FindObjectOfType<MapDisplay>();
+
+            if(drawMode == DrawMode.Noise){
+                display.DrawTexture(TextureGenerator.GenerateNoiseTexture(noiseMap));
+            }else if(drawMode == DrawMode.ColorMap){
+                display.DrawTexture(TextureGenerator.GenerateColorMap(noiseMap, regions));
+            }else if(drawMode == DrawMode.Mesh){
+                display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateColorMap(noiseMap, regions));
+            }
+        } 
+
+        private void OnValidate() {
+            if(lacunarity < 1){
+                lacunarity = 1;
+            }
+            if(octaves < 0){
+                octaves = 0;
+            }
+        }
+    }
+    [System.Serializable]
+    public struct TerrainType{
+        public string name;
+        public float height;
+        public Color color;
+    }
+}
