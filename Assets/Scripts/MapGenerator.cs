@@ -6,18 +6,22 @@ namespace osman
 {
     public class MapGenerator : MonoBehaviour
     { 
-        public enum DrawMode{Noise, ColorMap, Mesh};
-        public DrawMode drawMode = DrawMode.Noise;
-        [SerializeField]
-        TerrainType[] regions;
+        
+        [SerializeField] private DrawMode drawMode = DrawMode.Noise;
+        [SerializeField] TerrainType[] regions;
+
+        //Mesh Parameters
+        //
         [Space(2)]
-        [SerializeField]
-        public AnimationCurve heightCurve;
-        [SerializeField]
-        public float heightMultiplier = 1f;
-        public const int mapChunkSize = 241;
-        [Range(0,6)]
+        [SerializeField] private AnimationCurve heightCurve;
+        [SerializeField] private float heightMultiplier = 1f;
+        [Range(0, 6)]
         public int levelOfSimplification;
+
+        //Noise Parameters
+        //
+        [Space(2)]
+        public const int mapChunkSize = 241;
         public float scale;
         public float lacunarity = 1f;
         [Range(0,1)]
@@ -25,8 +29,10 @@ namespace osman
         public int octaves = 1;
         public int seed;
         public Vector2 offset;
+
+
         [Space(2)]
-        public bool autoUpdate;
+        [SerializeField] private bool autoUpdate;
         public void GenerateMap()
         {
             float[,] noiseMap = Noise.GenerateNoise(mapChunkSize, mapChunkSize,seed,scale, octaves, persistence, lacunarity, offset);

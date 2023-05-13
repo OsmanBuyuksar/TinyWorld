@@ -53,5 +53,46 @@ namespace osman
 
             return texture;
         }
+
+        public static Texture2D GenerateRegionTexture(Region[,] regionGrid, Dictionary<Region, Color> regions)
+        {
+            int width = regionGrid.GetLength(0);
+            int length = regionGrid.GetLength(1);
+
+            Texture2D texture = new Texture2D(width, length);
+            texture.wrapModeU = TextureWrapMode.Clamp;
+            texture.filterMode = FilterMode.Point;
+
+            Color[] colourMap = new Color[width * length];
+
+
+            //
+            for (int y = 0; y < length; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    switch (regionGrid[x, y])
+                    {
+                        case Region.plain:
+                            colourMap[y * width + x] = regions[Region.plain];
+                            break;
+
+                        case Region.plateu:
+                            colourMap[y * width + x] = regions[Region.plain];
+                            break;
+
+                        case Region.mountain:
+                            colourMap[y * width + x] = regions[Region.plain];
+                            break;
+                    }
+                }
+            }
+            texture.SetPixels(colourMap);
+            texture.Apply();
+
+
+
+            return texture;
+        }
     }
 }
