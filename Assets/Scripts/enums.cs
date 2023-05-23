@@ -1,2 +1,2 @@
-public enum DrawMode { Noise, ColorMap, Mesh };
-public enum Region { plain, plateu, mountain};
+public enum DrawMode { Noise, ColorMap, Mesh, WaveFunction };
+public enum Region { water, mountain, land};

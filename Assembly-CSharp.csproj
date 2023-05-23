@@ -60,19 +60,21 @@
     <Compile Include="Assets\Scripts\MeshGenerator.cs" />
     <Compile Include="Assets\Scripts\Noise.cs" />
     <Compile Include="Assets\Scripts\MapGenerator.cs" />
+    <Compile Include="Assets\Scripts\Cell.cs" />
+    <Compile Include="Assets\Scripts\enums.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\SimpleTiledModel.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\SimpleTiledWFC.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\Training.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\OverlappingModel.cs" />
     <Compile Include="Assets\Scripts\InfiniteTerrain.cs" />
+    <Compile Include="Assets\Scripts\WFCGenerator.cs" />
+    <Compile Include="Assets\Scripts\MapGeneratorEditor.cs" />
     <Compile Include="Assets\Scripts\MapDisplay.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
     <Compile Include="Assets\Scripts\TextureGenerator.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\OverlapWFC.cs" />
+    <Compile Include="Assets\Scripts\ContactType.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Stuff.cs" />
-    <Compile Include="Assets\Scripts\WFCGenerator.cs" />
-    <Compile Include="Assets\Scripts\enums.cs" />
-    <Compile Include="Assets\Scripts\Cell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\unity-wave-function-collapse\LICENSE.txt" />

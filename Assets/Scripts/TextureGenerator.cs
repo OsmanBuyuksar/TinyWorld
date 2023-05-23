@@ -66,25 +66,12 @@ namespace osman
             Color[] colourMap = new Color[width * length];
 
 
-            //
+            //colourMap[] = regions[region. <...>]  ?
             for (int y = 0; y < length; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    switch (regionGrid[x, y])
-                    {
-                        case Region.plain:
-                            colourMap[y * width + x] = regions[Region.plain];
-                            break;
-
-                        case Region.plateu:
-                            colourMap[y * width + x] = regions[Region.plain];
-                            break;
-
-                        case Region.mountain:
-                            colourMap[y * width + x] = regions[Region.plain];
-                            break;
-                    }
+                    colourMap[y * width + x] = regions[regionGrid[x, y]];
                 }
             }
             texture.SetPixels(colourMap);

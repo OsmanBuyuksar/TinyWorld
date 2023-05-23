@@ -32,19 +32,25 @@ namespace osman
 
 
         [Space(2)]
-        [SerializeField] private bool autoUpdate;
+        public bool autoUpdate;
         public void GenerateMap()
         {
             float[,] noiseMap = Noise.GenerateNoise(mapChunkSize, mapChunkSize,seed,scale, octaves, persistence, lacunarity, offset);
             
             MapDisplay display = FindObjectOfType<MapDisplay>();
 
-            if(drawMode == DrawMode.Noise){
-                display.DrawTexture(TextureGenerator.GenerateNoiseTexture(noiseMap));
-            }else if(drawMode == DrawMode.ColorMap){
-                display.DrawTexture(TextureGenerator.GenerateColorMap(noiseMap, regions));
-            }else if(drawMode == DrawMode.Mesh){
-                display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateColorMap(noiseMap, regions));
+            switch (drawMode)
+            {
+                case DrawMode.Noise:
+                    display.DrawTexture(TextureGenerator.GenerateNoiseTexture(noiseMap));
+                    break;
+                case DrawMode.ColorMap:
+                    display.DrawTexture(TextureGenerator.GenerateColorMap(noiseMap, regions));
+                    break;
+                case DrawMode.Mesh:
+                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateColorMap(noiseMap, regions));
+                    break;
+                
             }
         } 
 
