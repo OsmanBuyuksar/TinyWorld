@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\unity-wave-function-collapse\impl\Model.cs" />
     <Compile Include="Assets\Scripts\MeshGenerator.cs" />
+    <Compile Include="Assets\Scripts\SerializableDict.cs" />
     <Compile Include="Assets\Scripts\Noise.cs" />
     <Compile Include="Assets\Scripts\MapGenerator.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />

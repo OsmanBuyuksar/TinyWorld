@@ -19,26 +19,6 @@ namespace osman
         private float cellSize = 1;
 
         private Cell[,] cellMatrix;
-        void Start()
-        {
-            GenerateMap();
-
-            MapDisplay display = FindObjectOfType<MapDisplay>();
-
-            Region[,] regionGrid = new Region[cellMatrix.GetLength(0), cellMatrix.GetLength(1)];
-
-            Dictionary<Region, Color> regionColors = new Dictionary<Region, Color>();
-            regionColors[Region.land] = Color.green;
-            regionColors[Region.water] = Color.blue;
-            regionColors[Region.mountain] = Color.white;
-
-
-            for (int i = 0; i < cellMatrix.GetLength(0) - 1; i++)
-                for (int j = 0; j < cellMatrix.GetLength(0) - 1; j++)
-                    regionGrid[i, j] = cellMatrix[i, j]._possibleStates.First();
-
-            display.DrawTexture(TextureGenerator.GenerateRegionTexture(regionGrid, regionColors));
-        }
 
         private void InitializeGrid()
         {

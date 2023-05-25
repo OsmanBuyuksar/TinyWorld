@@ -5,12 +5,12 @@ using UnityEngine;
 namespace osman
 {
     [System.Serializable]
-    public class SerializableDict<K,V>
+    public class SerializableDict<K, V>
     {
         [SerializeField]
-        public List<K> keys { get; }
+        public List<K> keys;
         [SerializeField]
-        public List<V> values { get; }
+        public List<V> values;
 
         public SerializableDict()
         {
@@ -26,7 +26,7 @@ namespace osman
 
         public void SetElement(K key, V value)
         {
-            if (keys.IndexOf(key) != -1)
+            if (keys.IndexOf(key) == -1)
                 throw new System.NullReferenceException("There is not a matching key element in the keys list");
 
             values[keys.IndexOf(key)] = value;
@@ -43,7 +43,7 @@ namespace osman
 
         public V GetValue(K key)
         {
-            if (keys.IndexOf(key) != -1)
+            if (keys.IndexOf(key) == -1)
                 throw new System.NullReferenceException("There is not a matching key element in the keys list");
 
             return values[keys.IndexOf(key)];

@@ -54,7 +54,7 @@ namespace osman
             return texture;
         }
 
-        public static Texture2D GenerateRegionTexture(Region[,] regionGrid, Dictionary<Region, Color> regions)
+        public static Texture2D GenerateRegionTexture(Region[,] regionGrid, SerializableDict<Region, Color> regions)
         {
             int width = regionGrid.GetLength(0);
             int length = regionGrid.GetLength(1);

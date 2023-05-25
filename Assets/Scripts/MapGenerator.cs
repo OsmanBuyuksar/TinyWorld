@@ -13,6 +13,7 @@ namespace osman
         //Mesh Parameters
         //
         [Space(2)]
+        [Tooltip("Mesh Parameters")]
         [SerializeField] private AnimationCurve heightCurve;
         [SerializeField] private float heightMultiplier = 1f;
         [Range(0, 6)]
@@ -21,6 +22,7 @@ namespace osman
         //Noise Parameters
         //
         [Space(2)]
+        [Tooltip("Noise Parameters")]
         public const int mapChunkSize = 241;
         public float scale;
         public float lacunarity = 1f;
@@ -33,7 +35,9 @@ namespace osman
         //WFC Parameters
         //
         [Space(2)]
-        //SerializableDict
+        [Tooltip("WFC Parameters")]
+        [SerializeField]
+        SerializableDict<Region, Color> regionColors;
 
         [Space(2)]
         public bool autoUpdate;
