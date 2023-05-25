@@ -32,7 +32,6 @@ namespace osman
             regionColors[Region.water] = Color.blue;
             regionColors[Region.mountain] = Color.white;
 
-            
 
             for (int i = 0; i < cellMatrix.GetLength(0) - 1; i++)
                 for (int j = 0; j < cellMatrix.GetLength(0) - 1; j++)
@@ -148,6 +147,19 @@ namespace osman
             for (int j = 0; j < cellMatrix.GetLength(0) - 1; j++)
                 for (int k = 0; k < cellMatrix.GetLength(0) - 1; k++)
                     Debug.Log(cellMatrix[j, k]._possibleStates.First().ToString());
+        }
+
+        public Region[,] GenerateRegionGrid()
+        {
+            GenerateMap();
+
+            Region[,] regionGrid = new Region[cellMatrix.GetLength(0), cellMatrix.GetLength(1)];
+
+            for (int i = 0; i < cellMatrix.GetLength(0) - 1; i++)
+                for (int j = 0; j < cellMatrix.GetLength(0) - 1; j++)
+                    regionGrid[i, j] = cellMatrix[i, j]._possibleStates.First();
+
+            return regionGrid;
         }
     }
 }

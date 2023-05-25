@@ -30,6 +30,10 @@ namespace osman
         public int seed;
         public Vector2 offset;
 
+        //WFC Parameters
+        //
+        [Space(2)]
+        //SerializableDict
 
         [Space(2)]
         public bool autoUpdate;
@@ -38,6 +42,7 @@ namespace osman
             float[,] noiseMap = Noise.GenerateNoise(mapChunkSize, mapChunkSize,seed,scale, octaves, persistence, lacunarity, offset);
             
             MapDisplay display = FindObjectOfType<MapDisplay>();
+            WFCGenerator wfcGen = FindObjectOfType<WFCGenerator>();
 
             switch (drawMode)
             {
@@ -50,7 +55,9 @@ namespace osman
                 case DrawMode.Mesh:
                     display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateColorMap(noiseMap, regions));
                     break;
-                
+                case DrawMode.WaveFunction:
+                    display.DrawTexture(TextureGenerator.GenerateRegionTexture(wfcGen.GenerateRegionGrid(), regionColors));
+                    break;
             }
         } 
 
