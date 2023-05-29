@@ -56,6 +56,12 @@ namespace osman
         {
             return allContactTypes.First(contact => contact._moduleRegion == region)._excludedRegions;
         }
+
+        private float ReturnRegionHeight(Region region)
+        {
+            float f = allContactTypes.First(contact => contact._moduleRegion == region).height;
+            return f;
+        }
         /// <summary>
         /// Adds to the exclusion list of the collapsing cell if the given cell has uncompatible regions
         /// </summary>
@@ -72,7 +78,7 @@ namespace osman
             currentCell.RemoveStates(possibleExclusions);
         }
 
-        //yarým fps yolda :D
+        //yarï¿½m fps yolda :D
         private void CollapseCell(Cell cellToCollapse)
         {
             //Check neighbours and update possible states
@@ -123,10 +129,6 @@ namespace osman
                 CollapseCell(currentCell);
                 i++;
             }
-
-            for (int j = 0; j < cellMatrix.GetLength(0) - 1; j++)
-                for (int k = 0; k < cellMatrix.GetLength(0) - 1; k++)
-                    Debug.Log(cellMatrix[j, k]._possibleStates.First().ToString());
         }
 
         public Region[,] GenerateRegionGrid()
@@ -135,11 +137,24 @@ namespace osman
 
             Region[,] regionGrid = new Region[cellMatrix.GetLength(0), cellMatrix.GetLength(1)];
 
-            for (int i = 0; i < cellMatrix.GetLength(0) - 1; i++)
-                for (int j = 0; j < cellMatrix.GetLength(0) - 1; j++)
+            for (int i = 0; i < cellMatrix.GetLength(0); i++)
+                for (int j = 0; j < cellMatrix.GetLength(1); j++)
                     regionGrid[i, j] = cellMatrix[i, j]._possibleStates.First();
 
             return regionGrid;
         }
+
+        public float[,] GenerateRegionHeightGrid(Region[,] regionGrid)
+        {
+            float[,] regionHeightGrid = new float[regionGrid.GetLength(0), regionGrid.GetLength(1)];
+
+            for (int i = 0; i < regionGrid.GetLength(0); i++)
+                for (int j = 0; j < regionGrid.GetLength(1); j++){
+                    regionHeightGrid[i, j] = ReturnRegionHeight(regionGrid[i, j]);
+                }
+                    
+
+            return regionHeightGrid;
+        } 
     }
 }

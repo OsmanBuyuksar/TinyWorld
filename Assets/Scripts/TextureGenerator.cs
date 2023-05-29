@@ -71,6 +71,10 @@ namespace osman
             {
                 for (int x = 0; x < width; x++)
                 {
+                    Debug.Log("x: " + x + " y: " + y + " Texture Color Apply");
+                    Debug.Log(regionGrid[x, y].ToString());
+                    Debug.Log(regions[regionGrid[x, y]].ToString());
+                    
                     colourMap[y * width + x] = regions[regionGrid[x, y]];
                 }
             }

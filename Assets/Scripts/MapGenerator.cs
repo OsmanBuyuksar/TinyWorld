@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace osman
 {
@@ -43,11 +44,13 @@ namespace osman
         public bool autoUpdate;
         public void GenerateMap()
         {
-            float[,] noiseMap = Noise.GenerateNoise(mapChunkSize, mapChunkSize,seed,scale, octaves, persistence, lacunarity, offset);
-            
             MapDisplay display = FindObjectOfType<MapDisplay>();
             WFCGenerator wfcGen = FindObjectOfType<WFCGenerator>();
 
+
+            float[,] noiseMap = Noise.GenerateNoise(mapChunkSize, mapChunkSize,seed,scale, octaves, persistence, lacunarity, offset);
+            Region[,] wfcMap = wfcGen.GenerateRegionGrid();
+            
             switch (drawMode)
             {
                 case DrawMode.Noise:
@@ -62,6 +65,10 @@ namespace osman
                 case DrawMode.WaveFunction:
                     display.DrawTexture(TextureGenerator.GenerateRegionTexture(wfcGen.GenerateRegionGrid(), regionColors));
                     break;
+                case DrawMode.WaveFunctionMesh:
+                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(wfcGen.GenerateRegionHeightGrid(wfcMap), heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateRegionTexture(wfcMap, regionColors));
+                    break;
+
             }
         } 
 

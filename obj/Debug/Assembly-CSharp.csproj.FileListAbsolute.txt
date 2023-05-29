@@ -3,7 +3,6 @@ D:\UnityProjects\PCG\Temp\bin\Debug\Assembly-CSharp.pdb
 D:\UnityProjects\PCG\Temp\bin\Debug\Microsoft.Win32.Primitives.dll
 D:\UnityProjects\PCG\Temp\bin\Debug\mscorlib.dll
 D:\UnityProjects\PCG\Temp\bin\Debug\netstandard.dll
-D:\UnityProjects\PCG\Temp\bin\Debug\Osman.Tools.dll
 D:\UnityProjects\PCG\Temp\bin\Debug\System.AppContext.dll
 D:\UnityProjects\PCG\Temp\bin\Debug\System.Collections.Concurrent.dll
 D:\UnityProjects\PCG\Temp\bin\Debug\System.Collections.dll
@@ -290,7 +289,6 @@ D:\UnityProjects\PCG\Temp\bin\Debug\Unity.TextMeshPro.pdb
 D:\UnityProjects\PCG\Temp\bin\Debug\UnityEditor.UI.pdb
 D:\UnityProjects\PCG\Temp\bin\Debug\Unity.PlasticSCM.Editor.pdb
 D:\UnityProjects\PCG\Temp\bin\Debug\Unity.Rider.Editor.pdb
-D:\UnityProjects\PCG\Temp\bin\Debug\Osman.Tools.pdb
 D:\UnityProjects\PCG\Temp\bin\Debug\UnityEngine.UI.pdb
 D:\UnityProjects\PCG\Temp\bin\Debug\UnityEditor.TestRunner.pdb
 D:\UnityProjects\PCG\Temp\bin\Debug\UnityEngine.TestRunner.pdb
@@ -299,3 +297,6 @@ D:\UnityProjects\PCG\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 D:\UnityProjects\PCG\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\UnityProjects\PCG\obj\Debug\Assembly-CSharp.dll
 D:\UnityProjects\PCG\obj\Debug\Assembly-CSharp.pdb
+D:\UnityProjects\PCG\Temp\Bin\Debug\unityplastic.dll
+D:\UnityProjects\PCG\Temp\Bin\Debug\Unity.Plastic.Newtonsoft.Json.dll
+D:\UnityProjects\PCG\Temp\Bin\Debug\Unity.Plastic.Antlr3.Runtime.dll

@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moduleRegion: 2
+  height: 0.5
   _excludedRegions: 

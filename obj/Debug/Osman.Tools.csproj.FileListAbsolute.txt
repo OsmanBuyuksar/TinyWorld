@@ -4,7 +4,6 @@ D:\UnityProjects\PCG\Temp\Bin\Debug\log4netPlastic.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\Microsoft.Win32.Primitives.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\mscorlib.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\netstandard.dll
-D:\UnityProjects\PCG\Temp\Bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\System.AppContext.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\System.Collections.Concurrent.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\System.Collections.dll
@@ -203,7 +202,6 @@ D:\UnityProjects\PCG\Temp\Bin\Debug\UnityEngine.WindModule.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\UnityEngine.XRModule.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\unityplastic.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\Unity.Cecil.dll
-D:\UnityProjects\PCG\Temp\Bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll
 D:\UnityProjects\PCG\Temp\Bin\Debug\UnityEngine.xml
 D:\UnityProjects\PCG\Temp\Bin\Debug\UnityEngine.AIModule.xml
 D:\UnityProjects\PCG\Temp\Bin\Debug\UnityEngine.ARModule.xml

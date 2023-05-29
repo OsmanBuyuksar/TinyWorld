@@ -13,8 +13,8 @@ namespace osman
             int width = noiseMap.GetLength(0);
             int length = noiseMap.GetLength(1);
 
-            int widthVertexCount = (width - 1) / meshSimplificationIncrement + 1;
-            int lengthVertexCount = (length - 1) / meshSimplificationIncrement + 1;
+            int widthVertexCount = ((width - 1) / meshSimplificationIncrement) + 1;
+            int lengthVertexCount = ((length - 1) / meshSimplificationIncrement) + 1;
 
             float leftX = width / -2f;
             float topZ = length / 2f;
@@ -31,9 +31,11 @@ namespace osman
             int vertexIndex = 0;
             MeshData meshData = new MeshData(widthVertexCount, lengthVertexCount);
 
+            //construct vertices and triangles according to the noiseMap
+
             for(int x = 0; x < widthVertexCount; x++){
                 for(int y= 0; y < lengthVertexCount; y++){
-                    meshData.AddVertex(new Vector3(leftX + x * meshSimplificationIncrement,heightCurve.Evaluate(noiseMap[x * meshSimplificationIncrement,y* meshSimplificationIncrement])* heightMultiplier,topZ - y * meshSimplificationIncrement));
+                    meshData.AddVertex(new Vector3(leftX + x * meshSimplificationIncrement,heightCurve.Evaluate(noiseMap[x * meshSimplificationIncrement,  y * meshSimplificationIncrement]  )* heightMultiplier, topZ - y * meshSimplificationIncrement));
                     meshData.AddUV(new Vector2(x * meshSimplificationIncrement / (float)width, y * meshSimplificationIncrement / (float)length));
 
                     if(x < widthVertexCount-1 && y < lengthVertexCount-1){
