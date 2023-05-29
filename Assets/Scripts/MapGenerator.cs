@@ -60,17 +60,23 @@ namespace osman
                     display.DrawTexture(TextureGenerator.GenerateColorMap(noiseMap, regions));
                     break;
                 case DrawMode.Mesh:
-                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateColorMap(noiseMap, regions));
+                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification, 1), TextureGenerator.GenerateColorMap(noiseMap, regions));
                     break;
                 case DrawMode.WaveFunction:
                     display.DrawTexture(TextureGenerator.GenerateRegionTexture(wfcGen.GenerateRegionGrid(), regionColors));
                     break;
                 case DrawMode.WaveFunctionMesh:
-                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(wfcGen.GenerateRegionHeightGrid(wfcMap), heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateRegionTexture(wfcMap, regionColors));
+                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(wfcGen.GenerateRegionHeightGrid(wfcMap), heightMultiplier, heightCurve, levelOfSimplification, noiseMap.GetLength(0) / wfcMap.GetLength(0)), TextureGenerator.GenerateRegionTexture(wfcMap, regionColors));
+                    //display.UpdateMeshScale(noiseMap.GetLength(0) / wfcMap.GetLength(0));
+                    break;
+                case DrawMode.Combined:
+                    //display.DrawMesh(MeshGenerator.GenerateTerrainMesh(wfcGen.GenerateRegionHeightGrid(wfcMap), heightMultiplier, heightCurve, levelOfSimplification), TextureGenerator.GenerateRegionTexture(wfcMap, regionColors));
+                    
                     break;
 
             }
         } 
+        //private void Combined
 
         private void OnValidate() {
             if(lacunarity < 1){

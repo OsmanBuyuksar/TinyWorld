@@ -6,7 +6,7 @@ namespace osman
 {
     public static class MeshGenerator
     {
-        public static MeshData GenerateTerrainMesh(float[,] noiseMap, float heightMultiplier, AnimationCurve heightCurve, int levelOfSimplification){
+        public static MeshData GenerateTerrainMesh(float[,] noiseMap, float heightMultiplier, AnimationCurve heightCurve, int levelOfSimplification, float gridScale){
             
             int meshSimplificationIncrement = levelOfSimplification == 0 ? 1 : levelOfSimplification * 2;
 
@@ -16,8 +16,8 @@ namespace osman
             int widthVertexCount = ((width - 1) / meshSimplificationIncrement) + 1;
             int lengthVertexCount = ((length - 1) / meshSimplificationIncrement) + 1;
 
-            float leftX = width / -2f;
-            float topZ = length / 2f;
+            float leftX = width * gridScale / -2f;
+            float topZ = length * gridScale / 2f;
 
             
             /*
@@ -35,7 +35,7 @@ namespace osman
 
             for(int x = 0; x < widthVertexCount; x++){
                 for(int y= 0; y < lengthVertexCount; y++){
-                    meshData.AddVertex(new Vector3(leftX + x * meshSimplificationIncrement,heightCurve.Evaluate(noiseMap[x * meshSimplificationIncrement,  y * meshSimplificationIncrement]  )* heightMultiplier, topZ - y * meshSimplificationIncrement));
+                    meshData.AddVertex(new Vector3(leftX + x * meshSimplificationIncrement * gridScale,heightCurve.Evaluate(noiseMap[x * meshSimplificationIncrement,  y * meshSimplificationIncrement]  )* heightMultiplier, topZ - y * meshSimplificationIncrement * gridScale));
                     meshData.AddUV(new Vector2(x * meshSimplificationIncrement / (float)width, y * meshSimplificationIncrement / (float)length));
 
                     if(x < widthVertexCount-1 && y < lengthVertexCount-1){

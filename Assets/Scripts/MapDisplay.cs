@@ -19,5 +19,10 @@ namespace osman
             meshFilter.sharedMesh = meshData.CreateMesh();
             meshRenderer.sharedMaterial.mainTexture = texture; 
         }
+
+        public void UpdateMeshScale(float scale)
+        {
+            meshRenderer.gameObject.transform.localScale = Vector3.one * scale;
+        }
     }
 }
