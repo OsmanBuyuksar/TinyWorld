@@ -22,7 +22,7 @@ namespace osman
             
             /*
             
-            genislik 9 olsun basitleştirme de 2 olsa . . 3 . . 6 . . 9  buradan 4 tane köşe olmuş oldu yani köşe sayısı (w - 1) / basitleştirmeKatsayısı 
+            genislik 9 olsun (köşe sayısı) basitleştirme de 2 olsa . . 3 . . 6 . . 9  buradan 4 tane köşe olmuş oldu yani köşe sayısı (w - 1) / basitleştirmeKatsayısı 
             bu 4 köşe yeni genişliğim oldu o yüzden üçgen indekslerini 4 ile hesaplamam gerekiyor
 
             */

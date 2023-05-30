@@ -21,7 +21,7 @@ namespace osman
         // Start is called before the first frame update
         void Start()
         {
-            chunkSize = (MapGenerator.mapChunkSize - 1);
+            chunkSize = (MapGenerator.mapWidthVertexCount - 1);
             visibleTerrainCoord = Mathf.RoundToInt(viewDistance / chunkSize);
         }
 

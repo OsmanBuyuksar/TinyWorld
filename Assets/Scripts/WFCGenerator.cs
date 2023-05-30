@@ -7,10 +7,12 @@ namespace osman
 {
     public class WFCGenerator : MonoBehaviour
     {
+        //for combined use gridSize should have common divider with the number 241
         [SerializeField]
         private int gridSizeX = 5;
         [SerializeField]
         private int gridSizeY = 5;
+
         [SerializeField]
         private List<Region> allRegions = new List<Region>();
         [SerializeField]
