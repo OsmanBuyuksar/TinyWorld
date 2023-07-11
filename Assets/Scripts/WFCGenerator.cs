@@ -21,7 +21,11 @@ namespace osman
         private float cellSize = 1;
 
         private Cell[,] cellMatrix;
-
+        public Region[,] regionous;
+        public void Start()
+        {
+            regionous = GenerateRegionGrid();
+        }
         private void InitializeGrid()
         {
             cellMatrix = new Cell[gridSizeX,gridSizeY];
@@ -98,7 +102,7 @@ namespace osman
                     TryUpdateCellStates(nbrCell, neighbourOfNbrCell);
         }
 
-        private Cell LeastEntropyCell(Cell[] unfinishedCells)
+        private Cell LeastEntropyCell(List<Cell> unfinishedCells)
         {
             var cellsWithSuperposition = unfinishedCells.Where(cell => cell.StateCount() > 1).ToArray();
 
@@ -117,11 +121,12 @@ namespace osman
         private void GenerateMap()
         {
             InitializeGrid();
-            Cell[] unfinishedCells = cellMatrix.Cast<Cell>().ToArray();
+            List<Cell> unfinishedCells = cellMatrix.Cast<Cell>().ToList<Cell>();
             Cell currentCell;
 
             int i = 0;
-            while(unfinishedCells.Length > 1)
+            //change this to queue logic rather than making it search for every cell every time
+            while(unfinishedCells.Count > 1)
             {
                 currentCell = LeastEntropyCell(unfinishedCells);
 
@@ -129,6 +134,7 @@ namespace osman
                     break;
 
                 CollapseCell(currentCell);
+                unfinishedCells.Remove(currentCell);
                 i++;
             }
         }
@@ -140,8 +146,8 @@ namespace osman
             Region[,] regionGrid = new Region[cellMatrix.GetLength(0), cellMatrix.GetLength(1)];
 
             for (int i = 0; i < cellMatrix.GetLength(0); i++)
-                for (int j = 0; j < cellMatrix.GetLength(1); j++)
-                    regionGrid[i, j] = cellMatrix[i, j]._possibleStates.First();
+            for (int j = 0; j < cellMatrix.GetLength(1); j++)
+                regionGrid[i, j] = cellMatrix[i, j]._possibleStates.First();
 
             return regionGrid;
         }
@@ -151,9 +157,9 @@ namespace osman
             float[,] regionHeightGrid = new float[regionGrid.GetLength(0), regionGrid.GetLength(1)];
 
             for (int i = 0; i < regionGrid.GetLength(0); i++)
-                for (int j = 0; j < regionGrid.GetLength(1); j++){
-                    regionHeightGrid[i, j] = ReturnRegionHeight(regionGrid[i, j]);
-                }
+            for (int j = 0; j < regionGrid.GetLength(1); j++){
+                 regionHeightGrid[i, j] = ReturnRegionHeight(regionGrid[i, j]);
+            }
                     
 
             return regionHeightGrid;
