@@ -8,7 +8,7 @@ namespace osman
     public class MapGenerator : MonoBehaviour
     { 
         
-        [SerializeField] public DrawMode drawMode = DrawMode.Noise;
+        [SerializeField] private DrawMode drawMode = DrawMode.Noise;
         [SerializeField] TerrainType[] regions;
 
         //Mesh Parameters
@@ -44,14 +44,6 @@ namespace osman
 
         [Space(2)]
         public bool autoUpdate;
-        public void IncrementHeight(float incrementation)
-        {
-            if (heightMultiplier > 20)
-                return;
-
-            heightMultiplier += incrementation;
-            GenerateMap();
-        }
         public void GenerateMap()
         {
             MapDisplay display = FindObjectOfType<MapDisplay>();
@@ -60,9 +52,7 @@ namespace osman
 
             float[,] noiseMap = Noise.GenerateNoise(mapWidthVertexCount, mapWidthVertexCount,seed,scale, octaves, persistence, lacunarity, offset);  //this counts vertex 
             Region[,] wfcMap = wfcGen.GenerateRegionGrid(); //this counts edges
-            float[,] combinedMap = CombinedHeightMap(noiseMap, wfcGen.GenerateRegionHeightGrid(wfcMap));
-
-
+            
             switch (drawMode)
             {
                 case DrawMode.Noise:
@@ -72,9 +62,6 @@ namespace osman
                     display.DrawTexture(TextureGenerator.GenerateColorMap(noiseMap, regions));
                     break;
                 case DrawMode.Mesh:
-                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification, 1), TextureGenerator.GenerateNoiseTexture(noiseMap));
-                    break;
-                case DrawMode.ColoredMesh:
                     display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, heightMultiplier, heightCurve, levelOfSimplification, 1), TextureGenerator.GenerateColorMap(noiseMap, regions));
                     break;
                 case DrawMode.WaveFunction:
@@ -84,13 +71,13 @@ namespace osman
                     display.DrawMesh(MeshGenerator.GenerateTerrainMesh(wfcGen.GenerateRegionHeightGrid(wfcMap), heightMultiplier, heightCurve, levelOfSimplification, noiseMap.GetLength(0) / wfcMap.GetLength(0)), TextureGenerator.GenerateRegionTexture(wfcMap, regionColors));
                     break;
                 case DrawMode.Combined:
-                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(combinedMap, heightMultiplier, heightCurve, levelOfSimplification, 1), TextureGenerator.GenerateColorMap(combinedMap, regions));
+                    display.DrawMesh(MeshGenerator.GenerateTerrainMesh(CombinedHeightMap(noiseMap, wfcGen.GenerateRegionHeightGrid(wfcMap)), heightMultiplier, heightCurve, levelOfSimplification, 1), TextureGenerator.GenerateRegionTexture(wfcMap, regionColors));
                     
                     break;
 
             }
         } 
-        //TODO: this needs some refactoring too MESSY
+        //yeni yarým fps adayýmýz
         private float[,] CombinedHeightMap(float[,] noiseMap, float[,] regionHeightMap) 
         {
             //deneme için noisemap 241,241 e regionmap 24,24 boyutlarýný kullanýlacak region kenar bazlý noisemap köþe!!
@@ -110,25 +97,24 @@ namespace osman
                     regionX = x / scale; 
                     regionY = y / scale;
 
-                    //half of the value comes from x axis and half of it comes from y axis thats why multiply by 0.5f
+                    
                     if (x % scale < scale / 2) //if its on the left of the cell interpolate between the left cell and current cell !! check if its on the most left
                     {
-                        
                         if (regionX <= 0)
                             combinedMap[x, y] += 0.5f * wfcToNoiseRatio * regionHeightMap[regionX, regionY];
                         else
                             combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX - 1, regionY],  
                                                                                      regionHeightMap[regionX, regionY],
-                                                                                     (2 / ((float)scale - 1)) * (x % scale)); ////the formula is: t = 1 / (s-1) * x % (scale) + 0.5
+                                                                                     (1 / (scale - 1)) * (x % scale) + 0.5f); //the formula is: t = 1 / (s-1) * x % (scale) + 0.5
                     }
                     else
                     {
                         if(regionX >= regionWidth - 1)
                             combinedMap[x, y] += 0.5f * wfcToNoiseRatio * regionHeightMap[regionX, regionY];
                         else
-                            combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX + 1, regionY],
-                                                                                     regionHeightMap[regionX, regionY],
-                                                                                     (-2 / ((float)scale - 1)) * (x % scale) + 2); //(-1 / ((float)scale - 1)) * (x % scale) + 1.5f
+                            combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX, regionY],
+                                                                                     regionHeightMap[regionX + 1, regionY],
+                                                                                     (-1 / (scale - 1)) * (x % scale) + 1.5f);
                     }
 
                     if(y % scale < scale / 2) //if its on the bottom of the cell the formula is:
@@ -138,16 +124,16 @@ namespace osman
                         else
                             combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX, regionY - 1],
                                                                                      regionHeightMap[regionX, regionY],
-                                                                                     (2 / ((float)scale - 1)) * (y % scale));
+                                                                                     (1 / (scale - 1)) * (y % scale) + 0.5f);
                     }
                     else
                     {
                         if (regionY >= regionWidth - 1)
                             combinedMap[x, y] += 0.5f * wfcToNoiseRatio * regionHeightMap[regionX, regionY];
                         else
-                            combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX, regionY + 1],
-                                                                                     regionHeightMap[regionX, regionY],
-                                                                                     (-2 / ((float)scale - 1)) * (y % scale) + 2);
+                            combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX, regionY],
+                                                                                     regionHeightMap[regionX, regionY + 1],
+                                                                                     (-1 / (scale - 1)) * (x % scale) + 1.5f);
                     }
                     combinedMap[x, y] += noiseMap[x, y] * (1 - wfcToNoiseRatio);
                     // combinedMap[x, y] = noiseMap[x, y] * (1 - wfcToNoiseRatio) + regionHeightMap[x / scale, y / scale] * wfcToNoiseRatio * ((wfcEffectCurve.Evaluate((x % scale) / (float)scale) + wfcEffectCurve.Evaluate((y % scale) / (float)scale)));
@@ -166,7 +152,7 @@ namespace osman
         }
     }
     [System.Serializable]
-    public struct TerrainType{  
+    public struct TerrainType{
         public string name;
         public float height;
         public Color color;
