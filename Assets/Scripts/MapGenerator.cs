@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace osman
 {
@@ -98,17 +99,17 @@ namespace osman
             int regionWidth = regionHeightMap.GetLength(0);
 
             float[,] combinedMap = new float[width, width];
-            int scale = (width - 1) / regionWidth;
+            float scale = (float)(width) / regionWidth;
 
             //stores the region index values to be used in interpolation calculation
             int regionX;
             int regionY;
 
-            for (int y = 0; y < width - 1; y++)
-            for (int x = 0; x < width - 1; x++)
+            for (int y = 0; y < width; y++)
+            for (int x = 0; x < width; x++)
                 {
-                    regionX = x / scale; 
-                    regionY = y / scale;
+                    regionX = (int)(x / scale); 
+                    regionY = (int)(y / scale);
 
                     //half of the value comes from x axis and half of it comes from y axis thats why multiply by 0.5f
                     if (x % scale < scale / 2) //if its on the left of the cell interpolate between the left cell and current cell !! check if its on the most left
@@ -117,9 +118,9 @@ namespace osman
                         if (regionX <= 0)
                             combinedMap[x, y] += 0.5f * wfcToNoiseRatio * regionHeightMap[regionX, regionY];
                         else
-                            combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX - 1, regionY],  
-                                                                                     regionHeightMap[regionX, regionY],
-                                                                                     (2 / ((float)scale - 1)) * (x % scale)); ////the formula is: t = 1 / (s-1) * x % (scale) + 0.5
+                            combinedMap[x, y] += 0.5f * wfcToNoiseRatio * Mathf.Lerp(regionHeightMap[regionX - 1, regionY],
+                                                                                    regionHeightMap[regionX, regionY],
+                                                                                    (2 / ((float)scale - 1)) * (x % scale)); ////the formula is: t = 1 / (s-1) * x % (scale) + 0.5
                     }
                     else
                     {
