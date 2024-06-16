@@ -1,7 +1,7 @@
 # Purpose
 A terrain mesh construction algorithm to further emphasize the region differences.
 
-Generated Maps:
+*Generated Maps*
 ![Generated Map 1](Images/GeneratedMap1.png)
 ![Generated Map 2](Images/GeneratedMap2.png)
 
